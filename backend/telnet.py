@@ -1,7 +1,7 @@
 import socket, select, string, sys
 if __name__ == "__main__":
 
-    host = "rainmaker.wunderground.com"
+    host = "10.10.31.239"
     port = 23
 
     try:
@@ -18,38 +18,24 @@ if __name__ == "__main__":
     except socket.error, e:
         print("Error connecting to socket: %s" % e)
         sys.exit(1)
-    
-    print 'Connected to remote host'
 
-    # while 1:
-    #     try:
-    #         buf = skt.recv(4096)
-    #         print("RECV: %s" % buf)
-    #     except socket.error, e:
-    #         print("Error receiving data: %s" % e)
-    #         sys.exit(1)
-    #     if not len(buf):
-    #         break
-    #     sys.stdout.write(buf)
+    commands = ["red", "cisco", "show inventory"]
+
+    sent = 1;
+
+    for command in commands:
+        skt.send(command+"\n")
+        sent += len(command)
+
+    count = 0
 
     while 1:
-        socket_list = [sys.stdin, skt]
-          
-        # Get the list sockets which are readable
-        read_sockets, write_sockets, error_sockets = select.select(socket_list , [], [])
-         
-        for sock in read_sockets:
-            #incoming message from remote server
-            if sock == skt:
-                data = sock.recv(4096)
-                if not data :
-                    print 'Connection closed'
-                    sys.exit()
-                else :
-                    #print data
-                    sys.stdout.write(data)
-             
-            #user entered a message
-            else :
-                msg = sys.stdin.readline()
-                skt.send(msg)
+        count += 1
+        try:
+            buf = skt.recv(4096)
+        except socket.error, e:
+            print("Error receiving data: %s" % e)
+            sys.exit(1)
+        if count == sent:
+            print buf
+            break
