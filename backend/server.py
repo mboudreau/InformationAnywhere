@@ -11,13 +11,15 @@ def index():
 @route('/api/<mac>')
 def api(mac):
     # Get the client IP address
-    ip = request.remote_addr
+    client_ip = request.remote_addr
     # Retrieve client info from CMX server
     cmx_credentials = Credentials.cmx()
     cmx_request = urllib2.Request(
         "http://" +
         cmx_credentials["hostname"] + 
-        "/api/contextaware/v1/location/clients/10.10.30.166.json"
+        "/api/contextaware/v1/location/clients/" +
+        client_ip +
+        ".json"
         )
     cmx_request.add_header(
         "Authorization",
