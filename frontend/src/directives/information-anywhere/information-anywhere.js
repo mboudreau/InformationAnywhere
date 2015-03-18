@@ -11,7 +11,9 @@ angular.module('information-anywhere', [
 				data: '=informationAnywhere'
 			},
 			link: function($scope, $element, $attrs) {
+				$scope.help = function() {
 
+				}
 			}
 		}
 	});
