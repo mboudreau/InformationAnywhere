@@ -30,10 +30,13 @@
 		<accordion-group heading="Inventory" is-open="true">
 			<div ng-repeat="(key, value) in data.device.inventory">{{key}}: {{value}}</div>
 		</accordion-group>
-		<accordion-group heading="">
-
+		<accordion-group heading="Version">
+			{{data.device.version}}
 		</accordion-group>
-		<accordion-group heading="SMX">
+		<accordion-group heading="MAC Table">
+			{{data.device.mac-address-table}}
+		</accordion-group>
+		<accordion-group heading="CMX">
 			<div ng-repeat="(key, value) in data.cmx.WirelessClientLocation">{{key}}: {{value}}</div>
 		</accordion-group>
 		<accordion-group heading="Map">
