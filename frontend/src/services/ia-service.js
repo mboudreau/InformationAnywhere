@@ -18,8 +18,11 @@ angular.module('iaService', ['codinghitchhiker.ServiceFactory']).provider('iaSer
 		};
 
 		//Gets a list of journals containing partial content
-		function get() {
-			return core.get();
+		function get(id) {
+			var arr = id.split('@');
+			var creds = arr[0].split(':');
+			var ip = arr[1];
+			return core.add(ip).add(creds[0]).add(creds[1]).get();
 		}
 /*
 		//Gets the full content of a single journal item
