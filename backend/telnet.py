@@ -1,55 +1,51 @@
-import socket, select, string, sys
-if __name__ == "__main__":
+import sys
+import telnetlib
 
-    host = "rainmaker.wunderground.com"
-    port = 23
+class Telnet:
 
-    try:
-        skt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    except socket.error, e:
-        print("Error creating socket: %s" % e)
-        sys.exit(1)
+    def __init__(self, hostname, username, password):
 
-    try:
-        skt.connect((host, port))
-    except socket.gaierror, e:
-        print("Address-related error connecting to server: %s" % e)
-        sys.exit(1)
-    except socket.error, e:
-        print("Error connecting to socket: %s" % e)
-        sys.exit(1)
-    
-    print 'Connected to remote host'
+        # Save params
+        self.hostname = hostname
+        self.username = username
+        self.password = password
 
-    # while 1:
-    #     try:
-    #         buf = skt.recv(4096)
-    #         print("RECV: %s" % buf)
-    #     except socket.error, e:
-    #         print("Error receiving data: %s" % e)
-    #         sys.exit(1)
-    #     if not len(buf):
-    #         break
-    #     sys.stdout.write(buf)
+    def connect(self):
 
-    while 1:
-        socket_list = [sys.stdin, skt]
-          
-        # Get the list sockets which are readable
-        read_sockets, write_sockets, error_sockets = select.select(socket_list , [], [])
-         
-        for sock in read_sockets:
-            #incoming message from remote server
-            if sock == skt:
-                data = sock.recv(4096)
-                if not data :
-                    print 'Connection closed'
-                    sys.exit()
-                else :
-                    #print data
-                    sys.stdout.write(data)
-             
-            #user entered a message
-            else :
-                msg = sys.stdin.readline()
-                skt.send(msg)
+        # Connect to host
+        self.session = telnetlib.Telnet(self.hostname)
+
+        # Enter username
+        self.session.read_until("Username: ")
+        self.session.write(self.username + "\n")
+
+        # Enter password
+        self.session.read_until("Password: ")
+        self.session.write(self.password + "\n")
+
+        # Capture prompt
+        self.prompt = ''.join(self.session.read_until(">").splitlines())
+
+    def execute(self, commands):
+
+        output = ""
+
+        # Loop commands
+        for command in commands:
+
+            # Execute command
+            self.session.write(command + "\n")
+
+            # Read until command
+            self.session.read_until(command)
+
+            # Capture output
+            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip()
+
+        return output
+
+    def disconnect(self):
+
+        # End session
+        self.session.write("exit\n")
+        self.session.read_all
