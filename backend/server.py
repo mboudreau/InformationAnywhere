@@ -1,4 +1,5 @@
 import os, json, urllib2, base64
+from urllib2 import URLError
 from bottle import route, run, static_file, request
 from telnet import Telnet
 from credentials import Credentials
@@ -27,6 +28,7 @@ def api(mac):
     try:
         result = urllib2.urlopen(cmx_requqest)
     except URLError as e:
+        result = None
         print e.reason
     if result:
         cmxdata = json.load(result)
