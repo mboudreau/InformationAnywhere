@@ -16,14 +16,12 @@ print ""
 
 # Split
 
-mylist = inventory.strip().replace("\r","").replace("\n",", ").split(", ")
-[x.strip() for x in mylist]
+splitlist = inventory.strip().replace("\r","").replace("\n",", ").split(", ")
+data = {}
+for x in splitlist:
+    temp = x.strip().split(": ")
+    key = temp[0]
+    value = temp[1].strip('"').strip()
+    data[key] = value
 
-stuff = {}
-for x in mylist:
-    new = x.split(": ")
-    key = new[0]
-    value = new[1].strip('"').strip()
-    stuff[key] = value
-
-print stuff
+print data
