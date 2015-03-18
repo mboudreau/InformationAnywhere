@@ -1,9 +1,13 @@
 import os
-from bottle import route, run, static_file
+from bottle import route, run, static_file, request
 
 @route('/')
 def index():
     return static_file('index.html', root=os.path.join(os.getcwd()))
+
+@route('/api/whoami')
+def whoami():
+    return { "ip": request.remote_addr }
 
 @route('/api/<hostname>/<username>/<password>')
 def api(hostname, username, password):
