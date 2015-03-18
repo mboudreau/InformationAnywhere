@@ -20,8 +20,8 @@ def whoami():
     # Return JSON
     return { "ip": request.remote_addr, "json": data }
 
-@route('/api/<mac>')
-def api(mac):
+@route('/api/devinfo/<mac>')
+def devinfo(mac):
     # Note: in production we would use ARP data to retrieve IP, then query
     #       the device using CDP or Device APIs
     from telnet import Telnet
