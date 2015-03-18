@@ -7,20 +7,19 @@ angular.module('informationAnywhere', [
 ])
 
 	.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-		$locationProvider.html5Mode(true);
+		//$locationProvider.html5Mode(true);
 		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
 			.state('home', {
-				url: '/',
+				url: '/:id',
 				template: '<div information-anywhere="data"></div>',
 				controller:function($scope, data) {
-					debugger;
 					$scope.data = data;
 				},
 				resolve: {
-					data:function(iaService){
-						return iaService.get();
+					data:function(iaService, $stateParams){
+						return iaService.get($stateParams.id);
 					}
 				}
 			})
