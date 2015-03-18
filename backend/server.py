@@ -1,5 +1,7 @@
 import os, json, urllib2, base64
 from bottle import route, run, static_file, request
+from telnet import Telnet
+from credentials import Credentials
 
 @route('/')
 def index():
@@ -10,18 +12,16 @@ def api(mac):
     # Get the client IP address
     ip = request.remote_addr
     # Retrieve client info from SMX server
-    hostname = "10.10.20.11"
-    username = "learning"
-    password = "learning"
+    smx_credentials = Credentials.smx()
     smx_requqest = urllib2.Request(
         "http://" +
-        hostname + 
+        smx_credentials["hostname"] + 
         "/api/contextaware/v1/location/clients/10.10.30.166.json"
         )
     smx_requqest.add_header(
         "Authorization",
         "Basic %s" % base64.encodestring(
-            '%s:%s' % (username, password)
+            '%s:%s' % (smx_credentials["username"], smx_credentials["password"])
             ).replace('\n', '')
         )
     try:
@@ -34,20 +34,13 @@ def api(mac):
         smxdata = {}
     # Note: in production we would use ARP data to retrieve IP, then query
     #       the device using CDP or Device APIs
-    from telnet import Telnet
     # Retrieve telnet credentials for mac address
-    credentialsDb = {
-        "E0:89:9D:DA:1E:00": {
-            "hostname": "10.10.31.239",
-            "username": "red",
-            "password": "cisco"
-        }
-    }
-    credentials = credentialsDb[mac]
+    credentials = Credentials.telnet(mac)
     # Execute telnet commands to retrieve data
     t = Telnet(credentials["hostname"], credentials["username"], credentials["password"])
     t.connect()
     inventory = t.execute([ "show inventory" ])
+    version = {} #t.execute([ "show version" ])
     t.disconnect()
     # Format 'show inventory' data
     splitlist = inventory.strip().replace("\r","").replace("\n",", ").split(", ")
@@ -58,6 +51,12 @@ def api(mac):
         value = temp[1].strip('"').strip()
         data[key] = value
     # Return json
-    return { "device": { "inventory": data }, "smx": smxdata }
+    return {
+        "device": {
+            "inventory": data,
+            "version" : version
+            },
+        "smx": smxdata
+        }
 
 run(host='', port=8080, debug=True)
