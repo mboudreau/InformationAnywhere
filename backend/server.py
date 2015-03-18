@@ -9,11 +9,14 @@ def index():
 def api(mac):
     # Get the client IP address
     ip = request.remote_addr
-    # Retrieve info from SMX server
+    # Retrieve client info from SMX server
+    hostname = "10.10.20.11"
     username = "learning"
     password = "learning"
     smx_requqest = urllib2.Request(
-        "http://10.10.20.11/api/contextaware/v1/location/clients/10.10.30.166.json"
+        "http://" +
+        hostname + 
+        "/api/contextaware/v1/location/clients/10.10.30.166.json"
         )
     smx_requqest.add_header(
         "Authorization",
@@ -21,8 +24,14 @@ def api(mac):
             '%s:%s' % (username, password)
             ).replace('\n', '')
         )
-    result = urllib2.urlopen(smx_requqest)
-    smxdata = json.load(result)
+    try:
+        result = urllib2.urlopen(smx_requqest)
+    except URLError as e:
+        print e.reason
+    if result:
+        smxdata = json.load(result)
+    else:
+        smxdata = {}
     # Note: in production we would use ARP data to retrieve IP, then query
     #       the device using CDP or Device APIs
     from telnet import Telnet
