@@ -34,7 +34,7 @@ class Telnet:
         for command in commands:
 
             # Execute command
-            self.session.write(command + "\n")
+            self.session.write(command + "\n\n")
 
             # Read until command
             self.session.read_until(command)

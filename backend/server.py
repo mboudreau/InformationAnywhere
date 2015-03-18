@@ -40,7 +40,7 @@ def api(mac):
     t = Telnet(credentials["hostname"], credentials["username"], credentials["password"])
     t.connect()
     inventory = t.execute([ "show inventory" ])
-    version = {} #t.execute([ "show version" ])
+    version = t.execute([ "show version" ])
     t.disconnect()
     # Format 'show inventory' data
     splitlist = inventory.strip().replace("\r","").replace("\n",", ").split(", ")
