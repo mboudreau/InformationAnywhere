@@ -2,16 +2,12 @@ import os
 from bottle import route, run, static_file
 
 @route('/')
-def send_static():
+def index():
     return static_file('index.html', root=os.path.join(os.getcwd()))
 
-@route('/api')
-def root():
+@route('/api/<hostname>/<username>/<password>')
+def api(hostname, username, password):
     from telnet import Telnet
-
-    hostname = "10.10.31.239"
-    username = "red"
-    password = "cisco"
 
     t = Telnet(hostname, username, password)
     t.connect()
