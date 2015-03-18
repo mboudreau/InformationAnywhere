@@ -17,6 +17,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-html2js');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks("grunt-image-embed");
+	grunt.loadNpmTasks('grunt-embed');
 
 	/**
 	 * Rename watch task to two separate tasks for build and release
@@ -61,7 +62,7 @@ module.exports = function (grunt) {
 			build_app_js: {
 				files: [
 					{
-						src: [ '<%= app_files.js %>' ],
+						src: ['<%= app_files.js %>'],
 						dest: '<%= build_dir %>/<%= pkg.name %>/',
 						cwd: '.',
 						expand: true
@@ -71,7 +72,7 @@ module.exports = function (grunt) {
 			build_vendor_js: {
 				files: [
 					{
-						src: [ '<%= vendor_files.js %>' ],
+						src: ['<%= vendor_files.js %>'],
 						dest: '<%= build_dir %>/<%= pkg.name %>/',
 						cwd: '.',
 						expand: true
@@ -81,7 +82,7 @@ module.exports = function (grunt) {
 			release_assets: {
 				files: [
 					{
-						src: [ '**/*' ],
+						src: ['**/*'],
 						dest: '<%= release_dir %>/<%= pkg.name %>/assets',
 						cwd: '<%= build_dir %>/<%= pkg.name %>/assets',
 						expand: true
@@ -110,13 +111,13 @@ module.exports = function (grunt) {
 			build: {
 				files: [
 					{
-						src: [ '<%= app_files.js %>' ],
+						src: ['<%= app_files.js %>'],
 						cwd: '<%= build_dir %>/<%= pkg.name %>',
 						dest: '<%= build_dir %>/<%= pkg.name %>',
 						expand: true
 					},
 					{
-						src: [ '<%= vendor_files.js %>' ],
+						src: ['<%= vendor_files.js %>'],
 						cwd: '<%= build_dir %>/<%= pkg.name %>',
 						dest: '<%= build_dir %>/<%= pkg.name %>',
 						expand: true
@@ -152,7 +153,7 @@ module.exports = function (grunt) {
 				},
 				files: [
 					{
-						src: [ '**/*.html' ],
+						src: ['**/*.html'],
 						cwd: '<%= release_dir %>/<%= pkg.name %>/',
 						dest: '<%= release_dir %>/<%= pkg.name %>',
 						expand: true
@@ -178,7 +179,7 @@ module.exports = function (grunt) {
 					compress: true,
 					cleancss: true,
 					cleancssOptions: {
-						keepSpecialComments:0
+						keepSpecialComments: 0
 					}
 				},
 				files: [
@@ -238,7 +239,7 @@ module.exports = function (grunt) {
 				options: {
 					base: 'src/app'
 				},
-				src: [ '<%= app_files.atpl %>' ],
+				src: ['<%= app_files.atpl %>'],
 				dest: '<%= build_dir %>/<%= pkg.name %>/templates-app.js'
 			},
 
@@ -249,7 +250,7 @@ module.exports = function (grunt) {
 				options: {
 					base: 'src/directives'
 				},
-				src: [ '<%= app_files.dtpl %>' ],
+				src: ['<%= app_files.dtpl %>'],
 				dest: '<%= build_dir %>/<%= pkg.name %>/templates-directives.js'
 			}
 		},
@@ -288,14 +289,14 @@ module.exports = function (grunt) {
 				files: [
 					{
 						src: [
-							'**/*.min.js.gz',
-							'**/*.css.gz'
+							'**/*.min.js',
+							'**/*.css'
 						],
 						cwd: '<%= release_dir %>/<%= pkg.name %>/',
 						expand: true
 					}
 				]
-			},
+			}
 		},
 
 		compress: {
@@ -335,6 +336,14 @@ module.exports = function (grunt) {
 			}
 		},
 
+		embed: {
+			release: {
+				files: {
+					'<%= release_dir %>/<%= pkg.name %>/index.html': '<%= release_dir %>/<%= pkg.name %>/index.html'
+				}
+			}
+		},
+
 		delta: {
 			options: {
 				livereload: true
@@ -342,7 +351,7 @@ module.exports = function (grunt) {
 
 			gruntfile: {
 				files: 'Gruntfile.js',
-				tasks: [ 'jshint:gruntfile' ],
+				tasks: ['jshint:gruntfile'],
 				options: {
 					livereload: false
 				}
@@ -352,26 +361,26 @@ module.exports = function (grunt) {
 				files: [
 					'<%= app_files.js %>'
 				],
-				tasks: [ 'jshint:src', 'copy:build_app_js', 'ngAnnotate' ]
+				tasks: ['jshint:src', 'copy:build_app_js', 'ngAnnotate']
 			},
 
 			jsvendor: {
 				files: [
 					'<%= vendor_files.js %>'
 				],
-				tasks: [ 'copy:build_vendor_js', 'ngAnnotate' ]
+				tasks: ['copy:build_vendor_js', 'ngAnnotate']
 			},
 
 			assets: {
 				files: [
 					'src/assets/**/*'
 				],
-				tasks: [ 'copy:build_app_assets', 'copy:build_vendor_assets' ]
+				tasks: ['copy:build_app_assets', 'copy:build_vendor_assets']
 			},
 
 			html: {
-				files: [ '<%= app_files.html %>' ],
-				tasks: [ 'index:build' ]
+				files: ['<%= app_files.html %>'],
+				tasks: ['index:build']
 			},
 
 			tpls: {
@@ -379,19 +388,19 @@ module.exports = function (grunt) {
 					'src/app/**/*.tpl.html',
 					'src/directives/**/*.tpl.html'
 				],
-				tasks: [ 'html2js' ]
+				tasks: ['html2js']
 			},
 
 			less: {
-				files: [ 'src/**/*.less', 'vendor/**/*.less' ],
-				tasks: [ 'less:build' ]
+				files: ['src/**/*.less', 'vendor/**/*.less'],
+				tasks: ['less:build']
 			},
 
 			jsunit: {
 				files: [
 					'<%= app_files.jsunit %>'
 				],
-				tasks: [ 'jshint:test' ],
+				tasks: ['jshint:test'],
 				options: {
 					livereload: false
 				}
@@ -401,7 +410,7 @@ module.exports = function (grunt) {
 		deltarelease: {
 			gruntfile: {
 				files: 'Gruntfile.js',
-				tasks: [ 'jshint:gruntfile' ],
+				tasks: ['jshint:gruntfile'],
 				options: {
 					livereload: false
 				}
@@ -411,26 +420,26 @@ module.exports = function (grunt) {
 				files: [
 					'<%= app_files.js %>'
 				],
-				tasks: [ 'jshint:src', 'copy:build_app_js', 'ngAnnotate', 'concat', 'uglify' ]
+				tasks: ['jshint:src', 'copy:build_app_js', 'ngAnnotate', 'concat', 'uglify', 'embed:release']
 			},
 
 			jsvendor: {
 				files: [
 					'<%= vendor_files.js %>'
 				],
-				tasks: [ 'copy:build_vendor_js', 'ngAnnotate', 'concat' , 'uglify' ]
+				tasks: ['copy:build_vendor_js', 'ngAnnotate', 'concat', 'uglify', 'embed:release']
 			},
 
 			assets: {
 				files: [
 					'src/assets/**/*'
 				],
-				tasks: [ 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:release_assets' ]
+				tasks: ['copy:build_app_assets', 'copy:build_vendor_assets', 'copy:release_assets', 'embed:release']
 			},
 
 			html: {
-				files: [ '<%= app_files.html %>' ],
-				tasks: [ 'index:release' ]
+				files: ['<%= app_files.html %>'],
+				tasks: ['index:release']
 			},
 
 			tpls: {
@@ -438,19 +447,19 @@ module.exports = function (grunt) {
 					'<%= app_files.atpl %>',
 					'<%= app_files.dtpl %>'
 				],
-				tasks: [ 'html2js', 'concat', 'uglify']
+				tasks: ['html2js', 'concat', 'uglify', 'embed:release']
 			},
 
 			less: {
-				files: [ 'src/**/*.less', 'vendor/**/*.less' ],
-				tasks: [ 'less:release', 'imageEmbed', 'compress' ]
+				files: ['src/**/*.less', 'vendor/**/*.less'],
+				tasks: ['less:release', 'imageEmbed', 'compress', 'embed:release']
 			},
 
 			jsunit: {
 				files: [
 					'<%= app_files.jsunit %>'
 				],
-				tasks: [ 'jshint:test' ],
+				tasks: ['jshint:test'],
 				options: {
 					livereload: false
 				}
@@ -518,8 +527,8 @@ module.exports = function (grunt) {
 		cloudfront: {
 			index: {
 				items: [
-					'/<%= pkg.name %>' ,
-					'/<%= pkg.name %>/' ,
+					'/<%= pkg.name %>',
+					'/<%= pkg.name %>/',
 					'/<%= pkg.name %>/index.html',
 					'/<%= pkg.name %>/index.html.gz',
 					'/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
@@ -562,7 +571,7 @@ module.exports = function (grunt) {
 					],
 					parameters: [
 						'version=<%= pkg.version %>',
-							'vcs.revision=' + grunt.option('revision')
+						'vcs.revision=' + grunt.option('revision')
 					]
 				}
 			}
@@ -585,13 +594,13 @@ module.exports = function (grunt) {
 
 	grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
-	grunt.registerTask('watch', [ 'build', 'connect:build', 'delta' ]);
-	grunt.registerTask('watch:release', [ 'release', 'connect:release', 'deltarelease' ]);
+	grunt.registerTask('watch', ['build', 'connect:build', 'delta']);
+	grunt.registerTask('watch:release', ['release', 'connect:release', 'deltarelease']);
 
 	/**
 	 * The default task is to build and release.
 	 */
-	grunt.registerTask('default', [ 'build' ]);
+	grunt.registerTask('default', ['build']);
 
 
 	/**
@@ -607,7 +616,7 @@ module.exports = function (grunt) {
 	 * The release task gets your app ready for deployment
 	 */
 	grunt.registerTask('release', [
-		'build', 'copy:release_assets', 'less:release', 'imageEmbed', 'concat', 'uglify', 'compress', 'index:release', 'htmlmin:release'
+		'build', 'copy:release_assets', 'less:release', 'imageEmbed', 'concat', 'uglify', 'compress', 'index:release', 'htmlmin:release', 'embed:release'
 	]);
 
 	grunt.registerTask('package', [
@@ -704,8 +713,7 @@ module.exports = function (grunt) {
 	 */
 	grunt.registerMultiTask('file_check', 'Custom file check to catch dependency problems', function () {
 // Merge task-specific and/or target-specific options with these defaults.
-		var options = this.options({
-		});
+		var options = this.options({});
 
 		grunt.verbose.writeflags(options, 'Options');
 

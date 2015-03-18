@@ -9,17 +9,19 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
 	<!-- compiled CSS --><% styles.forEach( function ( file ) { %>
-	<link rel="stylesheet" type="text/css" href="<%= file %>?t=<%= timestamp %>"/>
+	<link rel="stylesheet" type="text/css" href="<%= file %>" data-embed/>
 	<% }); %>
 
 </head>
 <body>
 
-<div information-anywhere></div>
+<div ui-view>
+
+</div>
 
 <% if(async){
 scripts.forEach( function ( file ) { %>
-<script type="text/javascript" async src="<%= file %>?t=<%= timestamp %>"></script>
+<script type="text/javascript" async src="<%= file %>" data-embed></script>
 <% });
 } else {
 scripts.forEach( function ( file ) { %>
