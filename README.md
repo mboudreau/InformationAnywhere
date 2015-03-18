@@ -3,7 +3,7 @@ Cisco Live Hackathon
 
 "Red" team:
 
-* [Michael Boudreau](https://github.com/mboudreau)
+* [Michel Boudreau](https://github.com/mboudreau)
 * [Ryan Djurovich](https://github.com/ryandjurovich)
 * [Cosmin Ianculescu](https://github.com/cosmini)
 
