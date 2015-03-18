@@ -20,17 +20,26 @@ def whoami():
     # Return JSON
     return { "ip": request.remote_addr, "json": data }
 
-@route('/api/<hostname>/<username>/<password>')
-def api(hostname, username, password):
+@route('/api/<mac>')
+def api(mac):
+    # Note: in production we would use ARP data to retrieve IP, then query
+    #       the device using CDP or Device APIs
     from telnet import Telnet
-
-    t = Telnet(hostname, username, password)
+    # Retrieve telnet credentials for mac address
+    credentialsDb = {
+        "E0:89:9D:DA:1E:00": {
+            "hostname": "10.10.31.239",
+            "username": "red",
+            "password": "cisco"
+        }
+    }
+    credentials = credentialsDb[mac]
+    # Execute telnet commands to retrieve data
+    t = Telnet(credentials["hostname"], credentials["username"], credentials["password"])
     t.connect()
     inventory = t.execute([ "show inventory" ])
     t.disconnect()
-
-    # Split
-
+    # Format 'show inventory' data
     splitlist = inventory.strip().replace("\r","").replace("\n",", ").split(", ")
     data = {}
     for x in splitlist:
@@ -38,7 +47,7 @@ def api(hostname, username, password):
         key = temp[0]
         value = temp[1].strip('"').strip()
         data[key] = value
-
+    # Return json
     return {"status":"Good", "updated":1426679517, "inventory":data}
 
 run(host='', port=8080, debug=True)
