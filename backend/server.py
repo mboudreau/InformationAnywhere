@@ -52,10 +52,11 @@ def api(mac):
         temp = x.strip().split(": ")
         key = temp[0]
         value = temp[1].strip('"').strip()
-        if key == 'imageName':
-        	value = "http://10.10.20.11/api/contextaware/v1/maps/imagesource/"+value
         data[key] = value
     # Return json
+
+    smxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"] = "http://learning:learning@10.10.20.11/api/contextaware/v1/maps/imagesource/"+smxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"]
+
     return {
         "device": {
             "inventory": data,

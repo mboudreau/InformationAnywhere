@@ -1,10 +1,10 @@
 <div class="container information-anywhere">
 	<div class="row">
 		<div class="col-xs-10 col-sm-8">
-			<h2>{{data.inventory.NAME}} ({{data.inventory.DESCR}})</h2>
+			<h2>{{data.device.inventory.NAME}} ({{data.device.inventory.DESCR}})</h2>
 		</div>
 		<div class="col-xs-2 col-sm-4 text-right">
-			<h3><span class="hidden-xs">Status: </span><span class="status {{data.status.toLowerCase()}}">&#9679;</span></h3>
+			<h3><span class="hidden-xs">Status: </span><span class="status good">&#9679;</span></h3>
 		</div>
 	</div>
 	<!--<div class="row">
@@ -28,16 +28,19 @@
 
 	<accordion close-others="true">
 		<accordion-group heading="Inventory" is-open="true">
-			<div ng-repeat="(key, value) in data.inventory">{{key}}: {{value}}</div>
+			<div ng-repeat="(key, value) in data.device.inventory">{{key}}: {{value}}</div>
 		</accordion-group>
-		<accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-			{{group.content}}
+		<accordion-group heading="">
+
 		</accordion-group>
-		<accordion-group heading="Dynamic Body Content">
-			<p>The body of the accordion group grows to fit the contents</p>
+		<accordion-group heading="SMX">
+			<div ng-repeat="(key, value) in data.smx.WirelessClientLocation">{{key}}: {{value}}</div>
 		</accordion-group>
-		<accordion-group heading="Dynamic Body Content">
-			This is just some content to illustrate fancy headings.
+		<accordion-group heading="Map">
+			<div class="location">
+				<div class="dot" style="bottom:{{locationY}}%;left:{{locationX}}%">&#9679;</div>
+				<img ng-src="{{data.smx.WirelessClientLocation.MapInfo.Image.imageName}}" class="img-responsive">
+			</div>
 		</accordion-group>
 	</accordion>
 </div>
