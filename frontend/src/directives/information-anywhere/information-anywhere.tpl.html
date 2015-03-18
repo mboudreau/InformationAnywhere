@@ -1,7 +1,7 @@
 <div class="container information-anywhere">
 	<div class="row">
 		<div class="col-xs-10 col-sm-8">
-			<h2>{{data.name}} ({{data.ip}})</h2>
+			<h2>{{data.inventory.NAME}} ({{data.inventory.DESCR}})</h2>
 		</div>
 		<div class="col-xs-2 col-sm-4 text-right">
 			<h3><span class="hidden-xs">Status: </span><span class="status {{data.status.toLowerCase()}}">&#9679;</span></h3>
@@ -19,7 +19,7 @@
 	</div>-->
 	<div class="row actions">
 		<div class="col-xs-6">
-			<a class="btn btn-info">Chat</a>
+			<a class="btn btn-info" ng-click="help()">Halp!</a>
 		</div>
 		<div class="col-xs-6 text-right">
 			<a class="btn btn-warning">Reboot</a>
@@ -27,8 +27,8 @@
 	</div>
 
 	<accordion close-others="true">
-		<accordion-group heading="Static Header, initially expanded" is-open="true">
-			This content is straight in the template.
+		<accordion-group heading="Inventory" is-open="true">
+			<div ng-repeat="(key, value) in data.inventory">{{key}}: {{value}}</div>
 		</accordion-group>
 		<accordion-group heading="{{group.title}}" ng-repeat="group in groups">
 			{{group.content}}

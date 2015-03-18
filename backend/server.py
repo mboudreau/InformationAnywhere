@@ -24,6 +24,6 @@ def api(hostname, username, password):
         value = temp[1].strip('"').strip()
         data[key] = value
 
-    return {"name":"Red Team's Router","status":"Good", "updated":1426679517, "inventory":data}
+    return {"status":"Good", "updated":1426679517, "inventory":data}
 
 run(host='', port=8080, debug=True)
