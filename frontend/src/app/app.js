@@ -12,14 +12,14 @@ angular.module('informationAnywhere', [
 
 		$stateProvider
 			.state('home', {
-				url: '/:id',
+				url: '/:mac',
 				template: '<div information-anywhere="data"></div>',
 				controller:function($scope, data) {
 					$scope.data = data;
 				},
 				resolve: {
 					data:function(iaService, $stateParams){
-						return iaService.get($stateParams.id);
+						return iaService.get($stateParams.mac);
 					}
 				}
 			})
