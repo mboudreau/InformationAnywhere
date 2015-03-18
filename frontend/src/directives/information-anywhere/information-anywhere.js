@@ -7,7 +7,7 @@ angular.module('information-anywhere', [
 			restrict: 'A',
 			templateUrl: 'information-anywhere/information-anywhere.tpl.html',
 			scope: {
-				data: '='
+				data: '=informationAnywhere'
 			},
 			link: function($scope, $element, $attrs) {
 

@@ -15,6 +15,7 @@ angular.module('informationAnywhere', [
 				url: '/',
 				template: '<div information-anywhere="data"></div>',
 				controller:function($scope, data) {
+					debugger;
 					$scope.data = data;
 				},
 				resolve: {
