@@ -130,7 +130,7 @@ module.exports = function (grunt) {
 			release: {
 				options: {
 					mangle: false,
-					sourceMap: true
+					sourceMap: false
 				},
 				files: [
 					{
@@ -203,6 +203,7 @@ module.exports = function (grunt) {
 				sub: true,
 				boss: true,
 				asi: true,
+				debug: true,
 				eqnull: true,
 				shadow: true,
 				evil: true,
@@ -451,7 +452,7 @@ module.exports = function (grunt) {
 
 			less: {
 				files: ['src/**/*.less', 'vendor/**/*.less'],
-				tasks: ['less:release', 'imageEmbed', 'compress', 'embed:release']
+				tasks: ['less:release', 'imageEmbed', /*'compress',*/ 'embed:release']
 			},
 
 			jsunit: {
@@ -561,9 +562,9 @@ module.exports = function (grunt) {
 
 	/*
 	 * The release task gets your app ready for deployment
-	 */
+	 *//**/
 	grunt.registerTask('release', [
-		'build', 'copy:release_assets', 'less:release', 'imageEmbed', 'concat', 'uglify', 'compress', 'index:release', 'htmlmin:release', 'embed:release'
+		'build', 'copy:release_assets', 'less:release', 'imageEmbed', 'concat', 'uglify', /*'compress', */'index:release', 'htmlmin:release', 'embed:release'
 	]);
 
 
