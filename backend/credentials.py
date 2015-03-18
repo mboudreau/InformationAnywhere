@@ -11,8 +11,8 @@ class Credentials:
         }
         return credentialsDb[mac]
     @staticmethod
-    def smx():
-        # Return smx api credentials
+    def cmx():
+        # Return cmx api credentials
         return {
             "hostname": "10.10.20.11",
             "username": "learning",
