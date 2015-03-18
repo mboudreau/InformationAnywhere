@@ -11,27 +11,27 @@ def index():
 def api(mac):
     # Get the client IP address
     ip = request.remote_addr
-    # Retrieve client info from SMX server
-    smx_credentials = Credentials.smx()
-    smx_requqest = urllib2.Request(
+    # Retrieve client info from CMX server
+    cmx_credentials = Credentials.cmx()
+    cmx_requqest = urllib2.Request(
         "http://" +
-        smx_credentials["hostname"] + 
+        cmx_credentials["hostname"] + 
         "/api/contextaware/v1/location/clients/10.10.30.166.json"
         )
-    smx_requqest.add_header(
+    cmx_requqest.add_header(
         "Authorization",
         "Basic %s" % base64.encodestring(
-            '%s:%s' % (smx_credentials["username"], smx_credentials["password"])
+            '%s:%s' % (cmx_credentials["username"], cmx_credentials["password"])
             ).replace('\n', '')
         )
     try:
-        result = urllib2.urlopen(smx_requqest)
+        result = urllib2.urlopen(cmx_requqest)
     except URLError as e:
         print e.reason
     if result:
-        smxdata = json.load(result)
+        cmxdata = json.load(result)
     else:
-        smxdata = {}
+        cmxdata = {}
     # Note: in production we would use ARP data to retrieve IP, then query
     #       the device using CDP or Device APIs
     # Retrieve telnet credentials for mac address
@@ -40,10 +40,11 @@ def api(mac):
     t = Telnet(credentials["hostname"], credentials["username"], credentials["password"])
     t.connect()
     inventory = t.execute([ "show inventory" ])
-    version = {} #t.execute([ "show version" ])
+    version = t.execute([ "show version" ])
+    mat = t.execute([ "show mac address-table | exclude (Fa0/1|CPU)" ])
     t.disconnect()
     # Format 'show inventory' data
-    splitlist = inventory.strip().replace("\r","").replace("\n",", ").split(", ")
+    splitlist = inventory.replace("\n",", ").split(", ")
     data = {}
     for x in splitlist:
         temp = x.strip().split(": ")
@@ -57,9 +58,10 @@ def api(mac):
     return {
         "device": {
             "inventory": data,
-            "version" : version
+            "version" : version,
+            "mac-address-table": mat
             },
-        "smx": smxdata
+        "cmx": cmxdata
         }
 
 run(host='', port=8080, debug=True)

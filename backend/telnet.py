@@ -34,13 +34,13 @@ class Telnet:
         for command in commands:
 
             # Execute command
-            self.session.write(command + "\n")
+            self.session.write(command + "\n\n")
 
             # Read until command
             self.session.read_until(command)
 
             # Capture output
-            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip()
+            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip().strip().replace("\r","")
 
         return output
 
