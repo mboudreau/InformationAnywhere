@@ -1,4 +1,4 @@
-import os, json, urllib2, base64
+import os, json, urllib2, base64, socket
 from urllib2 import URLError
 from bottle import route, run, static_file, request
 from telnet import Telnet
@@ -12,6 +12,9 @@ def index():
 def api(mac):
     # Get the client IP address
     client_ip = request.remote_addr
+    if client_ip == "127.0.0.1":
+        # Use local server IP instead for development
+        client_ip = client_ip = ([(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
     # Retrieve client info from CMX server
     cmx_credentials = Credentials.cmx()
     cmx_request = urllib2.Request(
