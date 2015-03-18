@@ -28,3 +28,5 @@ For the `deploy.sh` script, we use the following SSH Config:
         Port 8022
 
 And to deploy run `./deploy.sh` and enter password `root`
+
+We can then access the server using [http://10.10.31.177](http://10.10.31.177) if the server.py script is running.
