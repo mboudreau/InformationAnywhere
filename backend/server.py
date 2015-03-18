@@ -41,9 +41,10 @@ def api(mac):
     t.connect()
     inventory = t.execute([ "show inventory" ])
     version = t.execute([ "show version" ])
+    mat = t.execute([ "show mac address-table | exclude (Fa0/1|CPU)" ])
     t.disconnect()
     # Format 'show inventory' data
-    splitlist = inventory.strip().replace("\r","").replace("\n",", ").split(", ")
+    splitlist = inventory.replace("\n",", ").split(", ")
     data = {}
     for x in splitlist:
         temp = x.strip().split(": ")
@@ -56,7 +57,8 @@ def api(mac):
     return {
         "device": {
             "inventory": data,
-            "version" : version
+            "version" : version,
+            "mac-address-table": mat
             },
         "cmx": cmxdata
         }

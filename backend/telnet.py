@@ -40,7 +40,7 @@ class Telnet:
             self.session.read_until(command)
 
             # Capture output
-            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip()
+            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip().strip().replace("\r","")
 
         return output
 
