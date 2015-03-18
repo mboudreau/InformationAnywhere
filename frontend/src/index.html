@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="informationAnywhere">
+<head>
+	<base href="/<%= name %>/">
+	<title><%= name.charAt(0).toUpperCase() + name.slice(1) %></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+	<!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+	<link rel="stylesheet" type="text/css" href="<%= file %>" data-embed/>
+	<% }); %>
+
+</head>
+<body>
+
+<div ui-view>
+
+</div>
+
+<% if(async){
+scripts.forEach( function ( file ) { %>
+<script type="text/javascript" async src="<%= file %>" data-embed></script>
+<% });
+} else {
+scripts.forEach( function ( file ) { %>
+<script type="text/javascript" src="<%= file %>?t=<%= timestamp %>"></script>
+<% });
+} %>
+</body>
+</html>
