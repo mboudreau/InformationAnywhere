@@ -1,21 +1,41 @@
 import sys
 import telnetlib
 
-HOST = "10.10.31.239"
-user = "red"
+hostname = "10.10.31.239"
+username = "red"
 password = "cisco"
 
-tn = telnetlib.Telnet(HOST)
+output = ""
 
-print "until username"
+# Connect to host
+tn = telnetlib.Telnet(hostname)
+
+# Enter username
 tn.read_until("Username: ")
-tn.write(user + "\n")
-print "until password"
+tn.write(username + "\n")
+
+# Enter password
 tn.read_until("Password: ")
 tn.write(password + "\n")
-print "then"
-tn.write("show inventory\n")
-print "and"
+
+# Capture prompt
+prompt = ''.join(tn.read_until(">").splitlines())
+
+# Loop commands
+for command in [ "show inventory" ]:
+
+    # Execute command
+    tn.write(command + "\n")
+
+    # Read until command
+    tn.read_until(command)
+
+    # Capture output
+    output += tn.read_until(prompt)[:-len(prompt)].rstrip()
+
+# End session
 tn.write("exit\n")
-print "done"
-print tn.read_all()
+tn.read_all
+
+# Print output
+print output
