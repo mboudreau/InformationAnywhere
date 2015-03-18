@@ -14,19 +14,19 @@ def api(mac):
     ip = request.remote_addr
     # Retrieve client info from CMX server
     cmx_credentials = Credentials.cmx()
-    cmx_requqest = urllib2.Request(
+    cmx_request = urllib2.Request(
         "http://" +
         cmx_credentials["hostname"] + 
         "/api/contextaware/v1/location/clients/10.10.30.166.json"
         )
-    cmx_requqest.add_header(
+    cmx_request.add_header(
         "Authorization",
         "Basic %s" % base64.encodestring(
             '%s:%s' % (cmx_credentials["username"], cmx_credentials["password"])
             ).replace('\n', '')
         )
     try:
-        result = urllib2.urlopen(cmx_requqest)
+        result = urllib2.urlopen(cmx_request)
     except URLError as e:
         result = None
         print e.reason
@@ -55,7 +55,8 @@ def api(mac):
         data[key] = value
     # Return json
 
-    smxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"] = "http://learning:learning@10.10.20.11/api/contextaware/v1/maps/imagesource/"+smxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"]
+    if "WirelessClientLocation" in cmxdata:
+        cmxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"] = "http://learning:learning@10.10.20.11/api/contextaware/v1/maps/imagesource/"+cmxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"]
 
     return {
         "device": {
