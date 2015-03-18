@@ -338,9 +338,8 @@ module.exports = function (grunt) {
 
 		embed: {
 			release: {
-				files: {
-					'<%= release_dir %>/index.html': '<%= release_dir %>/index.html'
-				}
+				src: '<%= release_dir %>/index.html',
+				dest: '../backend/index.html'
 			}
 		},
 
@@ -468,9 +467,9 @@ module.exports = function (grunt) {
 
 		connect: {
 			options: {
-				port: 8080,
+				port: 80,
 				protocol: 'http'/*,
-				middleware: function (connect, options) {
+				 middleware: function (connect, options) {
 				 var middlewares = [];
 				 var name = taskConfig.pkg.name;
 				 //middlewares.push(modRewrite(['^(/|/' + name + ')$ /' + name + '/ [R=301]'])); // Redirect root to journal
@@ -542,8 +541,8 @@ module.exports = function (grunt) {
 
 	grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
-	grunt.registerTask('watch', ['build', 'connect:build', 'delta']);
-	grunt.registerTask('watch:release', ['release', 'connect:release', 'deltarelease']);
+	grunt.registerTask('watch', ['build', /*'connect:build',*/ 'delta']);
+	grunt.registerTask('watch:release', ['release', /*'connect:release',*/ 'deltarelease']);
 
 	/**
 	 * The default task is to build and release.

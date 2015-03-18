@@ -6,11 +6,9 @@ angular.module('informationAnywhere', [
 	'iaService'
 ])
 
-	.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+	.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 		$locationProvider.html5Mode(true);
 		$urlRouterProvider.otherwise('/');
-
-		var API_Version = "v0.1";
 
 		$stateProvider
 			.state('home', {
