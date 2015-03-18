@@ -1,41 +1,51 @@
 import sys
 import telnetlib
 
-hostname = "10.10.31.239"
-username = "red"
-password = "cisco"
+class Telnet:
 
-output = ""
+    def __init__(self, hostname, username, password):
 
-# Connect to host
-tn = telnetlib.Telnet(hostname)
+        # Save params
+        self.hostname = hostname
+        self.username = username
+        self.password = password
 
-# Enter username
-tn.read_until("Username: ")
-tn.write(username + "\n")
+    def connect(self):
 
-# Enter password
-tn.read_until("Password: ")
-tn.write(password + "\n")
+        # Connect to host
+        self.session = telnetlib.Telnet(self.hostname)
 
-# Capture prompt
-prompt = ''.join(tn.read_until(">").splitlines())
+        # Enter username
+        self.session.read_until("Username: ")
+        self.session.write(self.username + "\n")
 
-# Loop commands
-for command in [ "show inventory" ]:
+        # Enter password
+        self.session.read_until("Password: ")
+        self.session.write(self.password + "\n")
 
-    # Execute command
-    tn.write(command + "\n")
+        # Capture prompt
+        self.prompt = ''.join(self.session.read_until(">").splitlines())
 
-    # Read until command
-    tn.read_until(command)
+    def execute(self, commands):
 
-    # Capture output
-    output += tn.read_until(prompt)[:-len(prompt)].rstrip()
+        output = ""
 
-# End session
-tn.write("exit\n")
-tn.read_all
+        # Loop commands
+        for command in commands:
 
-# Print output
-print output
+            # Execute command
+            self.session.write(command + "\n")
+
+            # Read until command
+            self.session.read_until(command)
+
+            # Capture output
+            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip()
+
+        return output
+
+    def disconnect(self):
+
+        # End session
+        self.session.write("exit\n")
+        self.session.read_all
