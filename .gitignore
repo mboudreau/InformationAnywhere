@@ -1,8 +1,0 @@
-frontend/build/
-frontend/release/
-frontend/dist/
-frontend/node_modules/
-frontend/vendor/
-.idea
-*.iml
-*.pyc
