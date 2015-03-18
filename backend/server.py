@@ -7,6 +7,6 @@ def send_static():
 
 @route('/api')
 def root():
-    return {"name":"Red Team's Router","status":"Good", "updated":1426679517}
+    return {"name":"Red Team's Router","status":"Good", "ip": "10.10.31.177", "updated":1426679517}
 
 run(host='', port=8080, debug=True)
