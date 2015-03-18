@@ -1,4 +1,4 @@
-import os
+import os, json, urllib2, base64
 from bottle import route, run, static_file, request
 
 @route('/')
@@ -7,7 +7,18 @@ def index():
 
 @route('/api/whoami')
 def whoami():
-    return { "ip": request.remote_addr }
+    # Get the client IP address
+    ip = request.remote_addr
+    # Retrieve info from SMX server
+    username = "learning"
+    password = "learning"
+    req = urllib2.Request("http://10.10.20.11/api/contextaware/v1/location/clients/10.10.30.166.json")
+    base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+    req.add_header("Authorization", "Basic %s" % base64string)   
+    result = urllib2.urlopen(req)
+    data = json.load(result)
+    # Return JSON
+    return { "ip": request.remote_addr, "json": data }
 
 @route('/api/<hostname>/<username>/<password>')
 def api(hostname, username, password):
