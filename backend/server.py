@@ -6,7 +6,7 @@ def send_static():
     return static_file('index.html', root=os.path.join(os.getcwd()))
 
 @route('/api')
-def hello():
-    return "{}"
+def root():
+    return {"status":"Good", "updated":1426679517}
 
 run(host='', port=8080, debug=True)
