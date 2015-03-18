@@ -12,8 +12,12 @@ angular.module('information-anywhere', [
 			},
 			link: function($scope, $element, $attrs) {
 				$scope.help = function() {
-
-				}
+					alert('Insert Yabber Here');
+				};
+				var dimensions = $scope.data.smx.WirelessClientLocation.MapInfo.Dimension;
+				var coordinates = $scope.data.smx.WirelessClientLocation.MapCoordinate;
+				$scope.locationX = coordinates.x/dimensions.length;
+				$scope.locationY = coordinates.y/dimensions.width*100;
 			}
 		}
 	});

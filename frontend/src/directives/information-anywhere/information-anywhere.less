@@ -2,8 +2,8 @@
 
 .information-anywhere {
 	.status {
-		font-size:1.6em;
-		padding:0 10px;
+		font-size: 1.6em;
+		padding: 0 10px;
 		text-decoration: none;
 		.lh-transition(all 0.5s);
 		.lh-keyframes(~'red, from { text-shadow: 0 0 10px #fff, 0 0 20px  #fff, 0 0 30px  #fff, 0 0 40px  #FF1177, 0 0 70px  #FF1177, 0 0 80px  #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177; } to { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177; }');
@@ -25,7 +25,18 @@
 	}
 
 	.actions {
-		margin-bottom:15px;
+		margin-bottom: 15px;
+	}
+
+	.location {
+		position: relative;
+		.dot {
+			position: absolute;
+			@size: 26px;
+			font-size: @size;
+			margin-top: (@size/-2);
+			margin-left: (@size/-2);
+		}
 	}
 
 	.panel {
@@ -37,8 +48,8 @@
 
 		.panel-title {
 			a {
-				padding:15px 10px;
-				display:block;
+				padding: 15px 10px;
+				display: block;
 			}
 		}
 	}
