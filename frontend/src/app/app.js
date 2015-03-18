@@ -2,7 +2,8 @@ angular.module('informationAnywhere', [
 	'ui.router',
 	'templates-app',
 	'templates-directives',
-	'information-anywhere'
+	'information-anywhere',
+	'iaService'
 ])
 
 	.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -14,7 +15,15 @@ angular.module('informationAnywhere', [
 		$stateProvider
 			.state('home', {
 				url: '/',
-				template: '<div information-anywhere></div>'
+				template: '<div information-anywhere="data"></div>',
+				controller:function($scope, data) {
+					$scope.data = data;
+				},
+				resolve: {
+					data:function(iaService){
+						return iaService.get();
+					}
+				}
 			})
 			.state('error', {
 			url: '/error',

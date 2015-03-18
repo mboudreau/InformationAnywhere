@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 				files: [
 					{
 						src: ['<%= app_files.js %>'],
-						dest: '<%= build_dir %>/<%= pkg.name %>/',
+						dest: '<%= build_dir %>/',
 						cwd: '.',
 						expand: true
 					}
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
 				files: [
 					{
 						src: ['<%= vendor_files.js %>'],
-						dest: '<%= build_dir %>/<%= pkg.name %>/',
+						dest: '<%= build_dir %>/',
 						cwd: '.',
 						expand: true
 					}
@@ -83,8 +83,8 @@ module.exports = function (grunt) {
 				files: [
 					{
 						src: ['**/*'],
-						dest: '<%= release_dir %>/<%= pkg.name %>/assets',
-						cwd: '<%= build_dir %>/<%= pkg.name %>/assets',
+						dest: '<%= release_dir %>/assets',
+						cwd: '<%= build_dir %>/assets',
 						expand: true
 					}
 				]
@@ -96,11 +96,11 @@ module.exports = function (grunt) {
 				src: [
 					'<%= vendor_files.js %>',
 					'module.prefix',
-					'<%= build_dir %>/<%= pkg.name %>/src/**/*.js',
-					'<%= build_dir %>/<%= pkg.name %>/templates-*.js',
+					'<%= build_dir %>/src/**/*.js',
+					'<%= build_dir %>/templates-*.js',
 					'module.suffix'
 				],
-				dest: '<%= release_dir %>/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
+				dest: '<%= release_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
 			}
 		},
 
@@ -112,14 +112,14 @@ module.exports = function (grunt) {
 				files: [
 					{
 						src: ['<%= app_files.js %>'],
-						cwd: '<%= build_dir %>/<%= pkg.name %>',
-						dest: '<%= build_dir %>/<%= pkg.name %>',
+						cwd: '<%= build_dir %>',
+						dest: '<%= build_dir %>',
 						expand: true
 					},
 					{
 						src: ['<%= vendor_files.js %>'],
-						cwd: '<%= build_dir %>/<%= pkg.name %>',
-						dest: '<%= build_dir %>/<%= pkg.name %>',
+						cwd: '<%= build_dir %>',
+						dest: '<%= build_dir %>',
 						expand: true
 					}
 				]
@@ -154,8 +154,8 @@ module.exports = function (grunt) {
 				files: [
 					{
 						src: ['**/*.html'],
-						cwd: '<%= release_dir %>/<%= pkg.name %>/',
-						dest: '<%= release_dir %>/<%= pkg.name %>',
+						cwd: '<%= release_dir %>/',
+						dest: '<%= release_dir %>/',
 						expand: true
 					}
 				]
@@ -170,7 +170,7 @@ module.exports = function (grunt) {
 							'<%= app_files.less %>',
 							'<%= vendor_files.css %>'
 						],
-						dest: '<%= build_dir %>/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+						dest: '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
 					}
 				]
 			},
@@ -188,7 +188,7 @@ module.exports = function (grunt) {
 							'<%= app_files.less %>',
 							'<%= vendor_files.css %>'
 						],
-						dest: '<%= release_dir %>/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+						dest: '<%= release_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
 					}
 				]
 			}
@@ -240,7 +240,7 @@ module.exports = function (grunt) {
 					base: 'src/app'
 				},
 				src: ['<%= app_files.atpl %>'],
-				dest: '<%= build_dir %>/<%= pkg.name %>/templates-app.js'
+				dest: '<%= build_dir %>/templates-app.js'
 			},
 
 			/**
@@ -251,14 +251,14 @@ module.exports = function (grunt) {
 					base: 'src/directives'
 				},
 				src: ['<%= app_files.dtpl %>'],
-				dest: '<%= build_dir %>/<%= pkg.name %>/templates-directives.js'
+				dest: '<%= build_dir %>/templates-directives.js'
 			}
 		},
 
 		index: {
 			options: {
 				templateSrc: '<%= app_files.html %>',
-				templateDest: '<%= build_dir %>/<%= pkg.name %>'
+				templateDest: '<%= build_dir %>'
 			},
 			build: {
 				files: [
@@ -266,7 +266,7 @@ module.exports = function (grunt) {
 						src: [
 							'<%= vendor_files.js %>'
 						],
-						cwd: '<%= build_dir %>/<%= pkg.name %>/',
+						cwd: '<%= build_dir %>/',
 						expand: true
 					},
 					{
@@ -275,7 +275,7 @@ module.exports = function (grunt) {
 							'**/*.css',
 							'!vendor/**/*'
 						],
-						cwd: '<%= build_dir %>/<%= pkg.name %>/',
+						cwd: '<%= build_dir %>/',
 						expand: true
 					}
 				]
@@ -283,7 +283,7 @@ module.exports = function (grunt) {
 
 			release: {
 				options: {
-					templateDest: '<%= release_dir %>/<%= pkg.name %>',
+					templateDest: '<%= release_dir %>',
 					async: true
 				},
 				files: [
@@ -292,7 +292,7 @@ module.exports = function (grunt) {
 							'**/*.min.js',
 							'**/*.css'
 						],
-						cwd: '<%= release_dir %>/<%= pkg.name %>/',
+						cwd: '<%= release_dir %>/',
 						expand: true
 					}
 				]
@@ -309,19 +309,19 @@ module.exports = function (grunt) {
 					// the dist/ folder each with the extension .gz.js
 					{
 						expand: true,
-						src: ['<%= release_dir %>/<%= pkg.name %>/**/*.min.js'],
+						src: ['<%= release_dir %>/**/*.min.js'],
 						ext: '.js.gz',
 						extDot: 'last'
 					},
 					{
 						expand: true,
-						src: ['<%= release_dir %>/<%= pkg.name %>/**/*.css'],
+						src: ['<%= release_dir %>/**/*.css'],
 						ext: '.css.gz',
 						extDot: 'last'
 					},
 					{
 						expand: true,
-						src: ['<%= release_dir %>/<%= pkg.name %>/**/*.html'],
+						src: ['<%= release_dir %>/**/*.html'],
 						ext: '.html.gz',
 						extDot: 'last'
 					}
@@ -331,15 +331,15 @@ module.exports = function (grunt) {
 
 		imageEmbed: {
 			all: {
-				src: '<%= release_dir %>/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
-				dest: '<%= release_dir %>/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+				src: '<%= release_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
+				dest: '<%= release_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
 			}
 		},
 
 		embed: {
 			release: {
 				files: {
-					'<%= release_dir %>/<%= pkg.name %>/index.html': '<%= release_dir %>/<%= pkg.name %>/index.html'
+					'<%= release_dir %>/index.html': '<%= release_dir %>/index.html'
 				}
 			}
 		},
@@ -469,42 +469,42 @@ module.exports = function (grunt) {
 		connect: {
 			options: {
 				port: 8080,
-				protocol: 'http',
+				protocol: 'http'/*,
 				middleware: function (connect, options) {
-					var middlewares = [];
-					var name = taskConfig.pkg.name;
-					middlewares.push(modRewrite(['^(/|/' + name + ')$ /' + name + '/ [R=301]'])); // Redirect root to journal
-					middlewares.push(modRewrite(['!\\.?(js|css|html|eot|svg|ttf|woff|otf|css|png|jpg|gif|ico) /' + name + '/ [L]'])); // Anything after journal
-					middlewares.push(function (req, res, next) {
-						var url = req.url.split('?')[0];
-						if (/\.(gz|gzip)$/.test(url)) {
-							var type = 'text/html';
-							if (/\.js\.(gz|gzip)$/.test(url)) {
-								type = 'application/javascript';
-							} else if (/\.css\.(gz|gzip)$/.test(url)) {
-								type = 'text/css';
-							}
+				 var middlewares = [];
+				 var name = taskConfig.pkg.name;
+				 //middlewares.push(modRewrite(['^(/|/' + name + ')$ /' + name + '/ [R=301]'])); // Redirect root to journal
+				 //middlewares.push(modRewrite(['!\\.?(js|css|html|eot|svg|ttf|woff|otf|css|png|jpg|gif|ico) / [L]'])); // Anything after journal
+				 *//*middlewares.push(function (req, res, next) {
+				 var url = req.url.split('?')[0];
+				 if (/\.(gz|gzip)$/.test(url)) {
+				 var type = 'text/html';
+				 if (/\.js\.(gz|gzip)$/.test(url)) {
+				 type = 'application/javascript';
+				 } else if (/\.css\.(gz|gzip)$/.test(url)) {
+				 type = 'text/css';
+				 }
 
-							res.setHeader('Content-Type', type);
-							res.setHeader('Content-Encoding', 'gzip');
+				 res.setHeader('Content-Type', type);
+				 res.setHeader('Content-Encoding', 'gzip');
 
-//							'application/x-gzip'
-//							'multipart/x-gzip'
-						}
+				 //							'application/x-gzip'
+				 //							'multipart/x-gzip'
+				 }
 
-						// don't just call next() return it
-						return next();
-					});
-					options.base.forEach(function (base) {
-						middlewares.push(connect.static(base));
-					});
-					return middlewares;
-				}
+				 // don't just call next() return it
+				 return next();
+				 });*//*
+				 options.base.forEach(function (base) {
+				 middlewares.push(connect.static(base));
+				 });
+				 return middlewares;
+				 }*/
 			},
 			build: {
 				options: {
 					base: '<%= build_dir %>'
-				}
+				},
 			},
 			release: {
 				options: {
@@ -524,64 +524,12 @@ module.exports = function (grunt) {
 			}
 		},
 
-		cloudfront: {
-			index: {
-				items: [
-					'/<%= pkg.name %>',
-					'/<%= pkg.name %>/',
-					'/<%= pkg.name %>/index.html',
-					'/<%= pkg.name %>/index.html.gz',
-					'/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.css',
-					'/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.css.gz',
-					'/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.js',
-					'/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.min.js',
-					'/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.min.js.gz',
-					'/<%= pkg.name %>/assets/<%= pkg.name %>-<%= pkg.version %>.min.js.map',
-				]
-			}
-		},
-
-		artifactory: {
-			options: {
-				url: grunt.option('url'),
-				repository: grunt.option('repository'),
-				username: grunt.option('username'),
-				password: grunt.option('password'),
-				base_path: ''
-			},
-			release: {
-				files: [
-					{
-						src: ['**/*'],
-						cwd: '<%= release_dir %>/',
-						expand: true,
-						dot: true // Needed to include .hidden files, like cloudfront invalidation
-					}
-				],
-				options: {
-					publish: [
-						{
-							group_id: 'com.pageup',
-							name: '<%= pkg.name %>',
-							ext: 'zip',
-							version: '<%= pkg.version %>',
-							classifier: grunt.option('classifier') || '',
-							path: '<%= package_dir %>/'
-						}
-					],
-					parameters: [
-						'version=<%= pkg.version %>',
-						'vcs.revision=' + grunt.option('revision')
-					]
-				}
-			}
-		}
 	};
 
 	// Dynamically adding html2js targets
 	for (var key in userConfig.vendor_files.tpl) {
 		var value = userConfig.vendor_files.tpl[key];
-		value.dest = userConfig.build_dir + '/<%= pkg.name %>/templates-' + key + '.js'
+		value.dest = userConfig.build_dir + '/templates-' + key + '.js'
 		taskConfig.html2js[key] = value;
 		if (Array.isArray(value.src)) {
 			taskConfig.delta.tpls.files = taskConfig.delta.tpls.files.concat(value.src);
@@ -619,13 +567,6 @@ module.exports = function (grunt) {
 		'build', 'copy:release_assets', 'less:release', 'imageEmbed', 'concat', 'uglify', 'compress', 'index:release', 'htmlmin:release', 'embed:release'
 	]);
 
-	grunt.registerTask('package', [
-		'cloudfront', 'artifactory:release:package'
-	]);
-
-	grunt.registerTask('publish', [
-		'cloudfront', 'artifactory:release:publish'
-	]);
 
 	function filterForJS(files) {
 		return files.filter(function (file) {
@@ -688,21 +629,6 @@ module.exports = function (grunt) {
 					});
 				}
 			});
-		});
-	});
-
-	grunt.registerMultiTask('cloudfront', 'Generate cloudfront file for invalidation on deploy', function () {
-		// Adding Quantity to cloudfront properties
-		var items = this.data.items;
-
-		grunt.file.copy('.cloudfront-invalidation', grunt.config('release_dir') + '/.cloudfront-invalidation-' + grunt.config('pkg.name'), {
-			process: function (contents, path) {
-				return grunt.template.process(contents, {
-					data: {
-						items: items
-					}
-				});
-			}
 		});
 	});
 

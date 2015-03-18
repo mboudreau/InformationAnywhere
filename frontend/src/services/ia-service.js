@@ -1,46 +1,27 @@
-angular.module('pageup.JournalService', ['codinghitchhiker.ServiceFactory']).provider('journalService', function () {
+angular.module('iaService', ['codinghitchhiker.ServiceFactory']).provider('iaService', function () {
 
-		var amount, core, query, endpoint = '/';
-		this.endpoint = function (url) {
-			if(angular.isDefined(url)) {
-				endpoint = url;
-				if(core) {
-					core.baseUrl = endpoint + "api/v1/journal";
-				}
-			}else{
-				return endpoint;
-			}
-		};
+		var amount, core, query;
 
 		this.$get = function ($http, $q, ServiceFactory) {
 			amount = 10;
 			query = $q;
-			core = new ServiceFactory(endpoint + "api/v1/journal");
+			core = new ServiceFactory('api');
 			return {
-				endpoint: this.endpoint,
-				get: get,
+				get: get/*,
 				getId: getId,
 				delete: remove,
 				save: save,
 				autoComplete: autoComplete,
 				createEntry: createEntry,
-				isEmptyEntry: isEmptyEntry
+				isEmptyEntry: isEmptyEntry*/
 			};
 		};
 
 		//Gets a list of journals containing partial content
-		function get(term, lastResultId) {
-			return core.get({amount: amount, term: term, lastResultId: lastResultId}).then(function (result) {
-				angular.forEach(result.entries, function (entry) {
-					// TODO: move this to presentation layer, or have server send full url
-					angular.forEach(entry.attachments, function (value) {
-						value.path = endpoint + 'api/v1/document/' + value.id;
-					});
-				});
-				return result;
-			});
+		function get() {
+			return core.get();
 		}
-
+/*
 		//Gets the full content of a single journal item
 		function getId(id) {
 			return core.add(id).get().then(function (result) {
@@ -99,6 +80,6 @@ angular.module('pageup.JournalService', ['codinghitchhiker.ServiceFactory']).pro
 				});
 			}
 			return bool;
-		}
+		}*/
 	}
 );

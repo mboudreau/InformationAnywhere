@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="informationAnywhere">
 <head>
-	<base href="/<%= name %>/">
+	<base href="/">
 	<title><%= name.charAt(0).toUpperCase() + name.slice(1) %></title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,11 +21,11 @@
 
 <% if(async){
 scripts.forEach( function ( file ) { %>
-<script type="text/javascript" async src="<%= file %>" data-embed></script>
+<script type="text/javascript" src="<%= file %>" data-embed></script>
 <% });
 } else {
 scripts.forEach( function ( file ) { %>
-<script type="text/javascript" src="<%= file %>?t=<%= timestamp %>"></script>
+<script type="text/javascript" src="<%= file %>"></script>
 <% });
 } %>
 </body>
