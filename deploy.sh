@@ -8,5 +8,5 @@ cp -R backend/ temp/
 scp -r temp/* iox:/flash/information-anywhere/
 
 # Cleanup
-rm temp/*
+rm temp/.gitignore temp/.DS_Store temp/*
 rmdir temp
