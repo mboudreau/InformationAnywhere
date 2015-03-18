@@ -3,6 +3,10 @@ angular.module('information-anywhere', [
 	'ui.bootstrap'
 ])
 
+	.config(function($compileProvider){
+		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|xmpp):/);
+	})
+
 	.directive('informationAnywhere', function () {
 		return {
 			restrict: 'A',
@@ -11,13 +15,13 @@ angular.module('information-anywhere', [
 				data: '=informationAnywhere'
 			},
 			link: function($scope, $element, $attrs) {
-				$scope.help = function() {
-					alert('Insert Yabber Here');
-				};
-				var dimensions = $scope.data.smx.WirelessClientLocation.MapInfo.Dimension;
-				var coordinates = $scope.data.smx.WirelessClientLocation.MapCoordinate;
-				$scope.locationX = coordinates.x/dimensions.length;
-				$scope.locationY = coordinates.y/dimensions.width*100;
+				$scope.helpUrl = 'xmpp:user1@abc.inc';
+				if($scope.data.cmx.WirelessClientLocation) {
+					var dimensions = $scope.data.cmx.WirelessClientLocation.MapInfo.Dimension;
+					var coordinates = $scope.data.cmx.WirelessClientLocation.MapCoordinate;
+					$scope.locationX = (1 - coordinates.x / dimensions.length) * 100;
+					$scope.locationY = (1 - coordinates.y / dimensions.width) * 100;
+				}
 			}
 		}
 	});

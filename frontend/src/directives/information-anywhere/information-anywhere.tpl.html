@@ -19,7 +19,7 @@
 	</div>-->
 	<div class="row actions">
 		<div class="col-xs-6">
-			<a class="btn btn-info" ng-click="help()">Halp!</a>
+			<a class="btn btn-info" ng-href="{{helpUrl}}">Halp!</a>
 		</div>
 		<div class="col-xs-6 text-right">
 			<a class="btn btn-warning">Reboot</a>
@@ -34,12 +34,12 @@
 
 		</accordion-group>
 		<accordion-group heading="SMX">
-			<div ng-repeat="(key, value) in data.smx.WirelessClientLocation">{{key}}: {{value}}</div>
+			<div ng-repeat="(key, value) in data.cmx.WirelessClientLocation">{{key}}: {{value}}</div>
 		</accordion-group>
 		<accordion-group heading="Map">
 			<div class="location">
 				<div class="dot" style="bottom:{{locationY}}%;left:{{locationX}}%">&#9679;</div>
-				<img ng-src="{{data.smx.WirelessClientLocation.MapInfo.Image.imageName}}" class="img-responsive">
+				<img ng-src="{{data.cmx.WirelessClientLocation.MapInfo.Image.imageName}}" class="img-responsive">
 			</div>
 		</accordion-group>
 	</accordion>
