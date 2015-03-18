@@ -1,5 +1,6 @@
 angular.module('information-anywhere', [
-	'ui.router'
+	'ui.router',
+	'ui.bootstrap'
 ])
 
 	.directive('informationAnywhere', function () {

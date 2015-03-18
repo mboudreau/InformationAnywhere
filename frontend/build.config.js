@@ -72,13 +72,8 @@ module.exports = {
 		js: [
 			'vendor/angular/angular.js',
 			'vendor/angular-ui-router/release/angular-ui-router.js',
-			//'vendor/angular-strap/dist/angular-strap.js',
-			//'vendor/angular-strap/dist/angular-strap.tpl.js',
-			//'vendor/angular-bootstrap/src/bindHtml/bindHtml.js',
-			//'vendor/angular-bootstrap/src/position/position.js',
-			//'vendor/angular-bootstrap/src/typeahead/typeahead.js',
-			//'vendor/angular-bootstrap/src/transition/transition.js',
-			//'vendor/angular-bootstrap/src/modal/modal.js',
+			'vendor/angular-bootstrap/ui-bootstrap.js',
+			'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
 			'vendor/angular-service-factory/angular-service-factory.js'
 		],
 		css: [

@@ -1,15 +1,43 @@
 <div class="container information-anywhere">
 	<div class="row">
-		<div class="col-xs-10">
-			<h2>{{data.name}}</h2>
+		<div class="col-xs-10 col-sm-8">
+			<h2>{{data.name}} ({{data.ip}})</h2>
 		</div>
-		<div class="col-xs-2 text-right">
+		<div class="col-xs-2 col-sm-4 text-right">
 			<h3><span class="hidden-xs">Status: </span><span class="status {{data.status.toLowerCase()}}">&#9679;</span></h3>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-12">
-
+	<!--<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<h4>Log</h4>
+			<div class="log" ng-bind="data.log"></div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<h4>Config</h4>
+			<div class="log" ng-bind="data.config"></div>
+		</div>
+	</div>-->
+	<div class="row actions">
+		<div class="col-xs-6">
+			<a class="btn btn-info">Chat</a>
+		</div>
+		<div class="col-xs-6 text-right">
+			<a class="btn btn-warning">Reboot</a>
 		</div>
 	</div>
+
+	<accordion close-others="true">
+		<accordion-group heading="Static Header, initially expanded" is-open="true">
+			This content is straight in the template.
+		</accordion-group>
+		<accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+			{{group.content}}
+		</accordion-group>
+		<accordion-group heading="Dynamic Body Content">
+			<p>The body of the accordion group grows to fit the contents</p>
+		</accordion-group>
+		<accordion-group heading="Dynamic Body Content">
+			This is just some content to illustrate fancy headings.
+		</accordion-group>
+	</accordion>
 </div>
