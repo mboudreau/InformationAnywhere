@@ -3,7 +3,7 @@ angular.module('information-anywhere', [
 	'ui.bootstrap'
 ])
 
-	.config(function($compileProvider){
+	.config(function ($compileProvider) {
 		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|xmpp):/);
 	})
 
@@ -14,9 +14,12 @@ angular.module('information-anywhere', [
 			scope: {
 				data: '=informationAnywhere'
 			},
-			link: function($scope, $element, $attrs) {
+			link: function ($scope, $element, $attrs) {
 				$scope.helpUrl = 'xmpp:user1@abc.inc';
-				if($scope.data.cmx.WirelessClientLocation) {
+				$scope.reboot = function () {
+					alert('Rebooting!');
+				};
+				if ($scope.data.cmx.WirelessClientLocation) {
 					var dimensions = $scope.data.cmx.WirelessClientLocation.MapInfo.Dimension;
 					var coordinates = $scope.data.cmx.WirelessClientLocation.MapCoordinate;
 					$scope.locationX = (1 - coordinates.x / dimensions.length) * 100;

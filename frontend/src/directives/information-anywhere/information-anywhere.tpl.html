@@ -7,22 +7,12 @@
 			<h3><span class="hidden-xs">Status: </span><span class="status good">&#9679;</span></h3>
 		</div>
 	</div>
-	<!--<div class="row">
-		<div class="col-xs-12 col-sm-6">
-			<h4>Log</h4>
-			<div class="log" ng-bind="data.log"></div>
-		</div>
-		<div class="col-xs-12 col-sm-6">
-			<h4>Config</h4>
-			<div class="log" ng-bind="data.config"></div>
-		</div>
-	</div>-->
 	<div class="row actions">
 		<div class="col-xs-6">
 			<a class="btn btn-info" ng-href="{{helpUrl}}">Halp!</a>
 		</div>
 		<div class="col-xs-6 text-right">
-			<a class="btn btn-warning">Reboot</a>
+			<a class="btn btn-warning" ng-click="reboot()">Reboot</a>
 		</div>
 	</div>
 
@@ -31,10 +21,14 @@
 			<div ng-repeat="(key, value) in data.device.inventory">{{key}}: {{value}}</div>
 		</accordion-group>
 		<accordion-group heading="Version">
-			{{data.device.version}}
+			<div style="white-space: pre;">
+				{{data.device.version}}
+			</div>
 		</accordion-group>
 		<accordion-group heading="MAC Table">
-			{{data.device.mac-address-table}}
+			<div style="white-space: pre;">
+				{{data.device.mac-address-table}}
+			</div>
 		</accordion-group>
 		<accordion-group heading="CMX">
 			<div ng-repeat="(key, value) in data.cmx.WirelessClientLocation">{{key}}: {{value}}</div>
