@@ -15,7 +15,7 @@ angular.module('information-anywhere', [
 				data: '=informationAnywhere'
 			},
 			link: function ($scope, $element, $attrs) {
-				$scope.helpUrl = 'xmpp:user1@abc.inc';
+				$scope.helpUrl = 'xmpp:user2@abc.inc';
 				$scope.reboot = function () {
 					alert('Rebooting!');
 				};
