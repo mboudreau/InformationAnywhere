@@ -26,6 +26,9 @@ class Telnet:
         # Capture prompt
         self.prompt = ''.join(self.session.read_until(">").splitlines())
 
+        # Disable --more-- for long commands
+        self.session.write("terminal length 0")
+
     def execute(self, commands):
 
         output = ""
@@ -34,13 +37,13 @@ class Telnet:
         for command in commands:
 
             # Execute command
-            self.session.write(command + "\n\n")
+            self.session.write(command + "\n")
 
             # Read until command
             self.session.read_until(command)
 
             # Capture output
-            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip().strip().replace("\r","")
+            output += self.session.read_until(self.prompt)[:-len(self.prompt)].rstrip().strip()
 
         return output
 

@@ -6,5 +6,5 @@ credentials = Credentials.telnet("E0:89:9D:DA:1E:00")
 # Execute telnet commands to retrieve data
 t = Telnet(credentials["hostname"], credentials["username"], credentials["password"])
 t.connect()
-print t.execute([ "show inventory", "show interface FastEthernet 0/1" ])
+print t.execute([ "show inventory" ])
 t.disconnect()
