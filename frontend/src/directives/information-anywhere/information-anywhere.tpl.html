@@ -34,6 +34,7 @@
 			<div ng-repeat="(key, value) in data.cmx.WirelessClientLocation">{{key}}: {{value}}</div>
 		</accordion-group>
 		<accordion-group heading="Map">
+			Coordinates: {{data.cmx.WirelessClientLocation.MapCoordinate}}
 			<div class="location">
 				<div class="dot" style="bottom:{{locationY}}%;left:{{locationX}}%">&#9679;</div>
 				<img ng-src="{{data.cmx.WirelessClientLocation.MapInfo.Image.imageName}}" class="img-responsive">
