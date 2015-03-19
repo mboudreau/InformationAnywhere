@@ -55,11 +55,12 @@ def api(mac):
     data = {}
     for x in splitlist:
         temp = x.strip().split(": ")
-        if 0 in temp:
+        temp_len = len(temp)
+        if temp_len > 0:
             key = temp[0]
         else:
             key = ""
-        if 1 in temp:
+        if temp_len > 1:
             value = temp[1].strip('"').strip()
         else:
             value = ""
