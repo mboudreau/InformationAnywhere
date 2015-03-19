@@ -9,10 +9,10 @@
 	</div>
 	<div class="row actions">
 		<div class="col-xs-6">
-			<a class="btn btn-info" ng-href="{{helpUrl}}">Halp!</a>
+			<a class="btn btn-info" ng-href="{{helpUrl}}">Contact Support</a>
 		</div>
 		<div class="col-xs-6 text-right">
-			<a class="btn btn-warning" ng-click="reboot()">Reboot</a>
+			<a class="btn btn-warning" ng-click="refresh()">Refresh</a>
 		</div>
 	</div>
 
@@ -34,7 +34,9 @@
 			<div ng-repeat="(key, value) in data.cmx.WirelessClientLocation">{{key}}: {{value}}</div>
 		</accordion-group>
 		<accordion-group heading="Map">
-			Coordinates: {{data.cmx.WirelessClientLocation.MapCoordinate}}
+			<strong>Coordinates:</strong>
+            (x: {{data.cmx.WirelessClientLocation.MapCoordinate.x}}, y: {{data.cmx.WirelessClientLocation.MapCoordinate.y}})
+            <strong>Last Updated:</strong> {{data.cmx.WirelessClientLocation.Statistics.lastLocatedTime}}
 			<div class="location">
 				<div class="dot" style="bottom:{{locationY}}%;left:{{locationX}}%">&#9679;</div>
 				<img ng-src="{{data.cmx.WirelessClientLocation.MapInfo.Image.imageName}}" class="img-responsive">

@@ -7,7 +7,7 @@ angular.module('information-anywhere', [
 		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|xmpp):/);
 	})
 
-	.directive('informationAnywhere', function () {
+	.directive('informationAnywhere', function (iaService, $stateParams) {
 		return {
 			restrict: 'A',
 			templateUrl: 'information-anywhere/information-anywhere.tpl.html',
@@ -15,6 +15,11 @@ angular.module('information-anywhere', [
 				data: '=informationAnywhere'
 			},
 			link: function ($scope, $element, $attrs) {
+                $scope.refresh = function(){
+                    iaService.get($stateParams.mac).then(function(value){
+                        $scope.data = value;
+                    });
+                };
 				$scope.helpUrl = 'xmpp:user2@abc.inc';
 				$scope.reboot = function () {
 					alert('Rebooting!');
