@@ -27,7 +27,7 @@ class Telnet:
         self.prompt = ''.join(self.session.read_until(">").splitlines())
 
         # Disable --more-- for long commands
-        self.session.write("terminal length 0")
+        #self.session.write("terminal length 0")
 
     def execute(self, commands):
 
