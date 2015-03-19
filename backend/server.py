@@ -55,12 +55,19 @@ def api(mac):
     data = {}
     for x in splitlist:
         temp = x.strip().split(": ")
-        key = temp[0]
-        value = temp[1].strip('"').strip()
-        data[key] = value
+        if 0 in temp:
+            key = temp[0]
+        else:
+            key = ""
+        if 1 in temp:
+            value = temp[1].strip('"').strip()
+        else:
+            value = ""
+        if key != "":
+            data[key] = value
     # Return json
 
-    if "WirelessClientLocation" in cmxdata:
+    if cmxdata and "WirelessClientLocation" in cmxdata:
         cmxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"] = "http://learning:learning@10.10.20.11/api/contextaware/v1/maps/imagesource/"+cmxdata["WirelessClientLocation"]["MapInfo"]["Image"]["imageName"]
 
     return {
